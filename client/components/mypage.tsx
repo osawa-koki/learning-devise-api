@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { Button, Form } from 'react-bootstrap';
+import { Alert, Button, Form } from 'react-bootstrap';
 
 import setting from '../setting';
 import { DataContext } from '../src/DataContext';
@@ -12,7 +12,33 @@ export default function MypagePage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { sharedData } = useContext(DataContext);
+  const [message, setMessage] = useState<['info' | 'danger', string] | null>(null);
+
+  const { sharedData, setSharedData } = useContext(DataContext);
+
+  const Signout = async () => {
+    if (sharedData.devise.is_login === false) return;
+    if (window.confirm('Are you sure to sign out?') === false) return;
+    const response = await fetch(`${setting.apiPath}/api/v1/auth/sign_out`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'uid': sharedData.devise.uid,
+        'client': sharedData.devise.client,
+        'access-token': sharedData.devise.access_token,
+      },
+    });
+    if (!response.ok) return;
+    localStorage.removeItem('devise');
+    setSharedData({
+      devise: {
+        is_login: false,
+        uid: null,
+        access_token: null,
+        client: null,
+      }
+    });
+  };
 
   useEffect(() => {
     (async () => {
@@ -77,13 +103,14 @@ export default function MypagePage() {
           variant='primary'
           className='d-block mt-3 m-auto'
           onClick={async () => {
+            setMessage(null);
+            await new Promise((resolve) => setTimeout(resolve, setting.smallWaitingTime));
             const body = {
               name,
               nickname,
               email,
             };
             if (password !== '') body['password'] = password;
-
             const res = await fetch(`${setting.apiPath}/api/v1/auth`, {
               method: 'PUT',
               headers: {
@@ -94,13 +121,31 @@ export default function MypagePage() {
               },
               body: JSON.stringify(body),
             });
-            const data = await res.json();
-            console.log(data);
+            if (res.ok) {
+              setMessage(['info', 'Update success!']);
+            } else {
+              setMessage(['danger', 'Update failed...']);
+            }
+            setTimeout(() => setMessage(null), setting.waitingTime);
           }}
         >
           Update
         </Button>
       </Form>
+      {
+        message !== null &&
+        <Alert variant={message[0]} className='mt-3'>
+          {message[1]}
+        </Alert>
+      }
+      <Button
+        variant='outline-danger'
+        size='sm'
+        className='d-block mt-5 m-auto w-100'
+        onClick={Signout}
+      >
+        Sign out
+      </Button>
     </>
   );
 };
