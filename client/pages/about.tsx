@@ -6,7 +6,7 @@ export default function AboutPage() {
     <Layout>
       <div id="About">
         <h1>Here, About page.</h1>
-        <p className="mt-3">
+        <div className="mt-3">
           Deviseモジュールを使って、認証機能を実装しています。<br />
           認証機能とは「あなたは本当に〇〇さんですか？」という確認機能です。<br />
           <br />
@@ -21,7 +21,7 @@ export default function AboutPage() {
           など、様々な方法があります。<br />
           <br />
           今回は、もっとも原始的なID/PWを使った認証機能を実装しています。
-        </p>
+        </div>
       </div>
     </Layout>
   );

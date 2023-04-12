@@ -9,7 +9,6 @@ import '../styles/menu.scss';
 
 import '../styles/index.scss';
 import '../styles/about.scss';
-import '../styles/contact.scss';
 
 import Head from 'next/head';
 
