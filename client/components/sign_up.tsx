@@ -103,7 +103,7 @@ export default function SignUpPage() {
           type="submit"
           onClick={Logup}
         >
-          Sign in
+          Sign up
         </Button>
       </Form>
       {
