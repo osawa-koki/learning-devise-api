@@ -2,6 +2,13 @@
 
 🥨🥨🥨 Devise(devise-token-auth)を使用してAPIで認証を行うサンプルプログラムです。  
 
+## 実行方法
+
+```shell
+docker build -t learning-devise-api .
+docker run -d -p 8000:8000 --name learning-devise-api learning-devise-api
+```
+
 ## devise-token-authについて
 
 モジュールを追加します。  
