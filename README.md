@@ -2,6 +2,8 @@
 
 🥨🥨🥨 Devise(devise-token-auth)を使用してAPIで認証を行うサンプルプログラムです。  
 
+![成果物](./docs/img/fruit.gif)  
+
 ## 実行方法
 
 ```shell
