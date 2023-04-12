@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AppProps } from 'next/app';
 import { useState } from 'react';
 
@@ -26,6 +26,41 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       client: null,
     }
   });
+
+  useEffect(() => {
+
+    (async () => {
+      const devise = localStorage.getItem('devise');
+      if (!devise) return;
+      const deviseJson = JSON.parse(devise);
+      const response = await fetch(`${setting.apiPath}/api/v1/users`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'uid': deviseJson.uid,
+          'client': deviseJson.client,
+          'access-token': deviseJson.access_token,
+        },
+      });
+      if (!response.ok) return;
+      console.log('Retrieved devise from localStorage');
+      setSharedData({
+        devise: {
+          is_login: true,
+          uid: deviseJson.uid,
+          access_token: deviseJson.access_token,
+          client: deviseJson.client,
+        }
+      });
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (sharedData.devise.is_login === false) return;
+    localStorage.setItem('devise', JSON.stringify(sharedData.devise));
+    console.log('Saved devise to localStorage');
+  }, [sharedData.devise])
+
 
   return (
     <>
