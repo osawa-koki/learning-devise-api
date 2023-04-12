@@ -16,6 +16,14 @@ Style/IfUnlessModifier:
   Enabled: false
 Style/GlobalStdStream:
   Enabled: false
+Style/WordArray:
+  Enabled: false
+Style/HashSyntax:
+  Enabled: false
+Style/SymbolArray:
+  Enabled: false
+Style/PerlBackrefs:
+  Enabled: false
 Layout/EndOfLine:
   Enabled: false
 Layout/LineLength:
@@ -23,6 +31,24 @@ Layout/LineLength:
 Layout/EmptyLinesAroundBlockBody:
   Enabled: false
 Layout/EmptyLines:
+  Enabled: false
+Layout/TrailingEmptyLines:
+  Enabled: false
+Layout/TrailingWhitespace:
+  Enabled: false
+Layout/SpaceInsideArrayLiteralBrackets:
+  Enabled: false
+Layout/ExtraSpacing:
+  Enabled: false
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+Layout/ArgumentAlignment:
+  Enabled: false
+Layout/SpaceAroundOperators:
+  Enabled: false
+Layout/SpaceInsidePercentLiteralDelimiters:
   Enabled: false
 Lint/ScriptPermission:
   Enabled: false
@@ -33,4 +59,6 @@ Metrics/MethodLength:
 Metrics/PerceivedComplexity:
   Enabled: false
 Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/AbcSize:
   Enabled: false
