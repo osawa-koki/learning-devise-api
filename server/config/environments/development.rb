@@ -68,7 +68,8 @@ Rails.application.configure do
       origins '*'
       resource '*',
         headers: :any,
-        methods: [:get, :post, :put, :patch, :delete, :options, :head]
+        methods: [:get, :post, :put, :patch, :delete, :options, :head],
+        expose: ['uid', 'access-token', 'client']
     end
   end
 end
