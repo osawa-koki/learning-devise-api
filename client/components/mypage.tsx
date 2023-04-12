@@ -62,6 +62,8 @@ export default function MypagePage() {
   return (
     <>
       <h1>Mypage</h1>
+      <div className='mt-3'>
+      </div>
       <Form>
         <Form.Group className='mt-3'>
           <Form.Label>Name</Form.Label>

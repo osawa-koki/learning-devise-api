@@ -1,12 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import Layout from "../components/Layout";
 
 import { DataContext } from "../src/DataContext";
 import MypagePage from "../components/mypage";
 import SignInPage from "../components/sign_in";
+import { Button } from "react-bootstrap";
 
 export default function ContactPage() {
+
+  const [tab, setTab] = useState<'sign_up' | 'sign_in'>('sign_in');
 
   const { sharedData } = useContext(DataContext);
 
@@ -15,7 +18,20 @@ export default function ContactPage() {
       <div id="Mypage">
         {
           sharedData.devise.is_login ?
-          <MypagePage /> : <SignInPage />
+          <MypagePage /> : (
+            <>
+              <Button
+                variant={tab === 'sign_in' ? 'primary' : 'outline-primary'}
+                onClick={() => setTab(tab === 'sign_in' ? 'sign_up' : 'sign_in')}
+              >
+              {tab === 'sign_in' ? 'Sign in' : 'Sign in'}
+              </Button>
+              <hr />
+              {
+                tab === 'sign_in' ? <SignInPage /> : <SignInPage />
+              }
+            </>
+          )
         }
       </div>
     </Layout>
