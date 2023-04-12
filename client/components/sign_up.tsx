@@ -7,15 +7,16 @@ export default function SignUpPage() {
 
   const [email, setEmail] = React.useState<string>('');
   const [password, setPassword] = React.useState<string>('');
+  const [password_confirmation, setPasswordConfirmation] = React.useState<string>('');
 
   const [error, setError] = React.useState<string | null>(null);
 
   const { sharedData, setSharedData } = useContext(DataContext);
 
-  const Login = async (e) => {
+  const Logup = async (e) => {
     setError(null);
     e.preventDefault();
-    const response = await fetch(`${setting.apiPath}/api/v1/auth/sign_in`, {
+    const response = await fetch(`${setting.apiPath}/api/v1/auth`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -24,12 +25,9 @@ export default function SignUpPage() {
       body: JSON.stringify({
         email,
         password,
+        password_confirmation,
       }),
     });
-    if (response.status === 401) {
-      setError('Invalid email or password');
-      return;
-    }
     if (response.status !== 200) {
       setError(`${response.status} ${response.statusText}`);
       return;
@@ -41,7 +39,6 @@ export default function SignUpPage() {
     const uid = response.headers.get('uid');
     const client = response.headers.get('client');
     const access_token = response.headers.get('access-token');
-
 
     if (!uid) {
       setError(`Invalid response: uid is ${uid}`);
@@ -91,11 +88,20 @@ export default function SignUpPage() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
+        <Form.Group className='mt-3'>
+          <Form.Label>Password confirmation</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Password confirmation"
+            value={password_confirmation}
+            onChange={(e) => setPasswordConfirmation(e.target.value)}
+          />
+        </Form.Group>
         <Button
           variant="primary"
           className='d-block mt-3 m-auto'
           type="submit"
-          onClick={Login}
+          onClick={Logup}
         >
           Sign in
         </Button>
